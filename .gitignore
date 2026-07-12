@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+*.log
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit / Jupyter
+.streamlit/
+.ipynb_checkpoints/
+
+# Model checkpoints and weights (large files - do not commit to git)
+*.pt
+*.pth
+*.pkl
+*.bin
+*.safetensors
+*.h5
+*.onnx
+model/
+models/
+checkpoint-*/
+
+# Output
+saved/
+outputs/
+results/
+
+# System
+.DS_Store
+Thumbs.db
