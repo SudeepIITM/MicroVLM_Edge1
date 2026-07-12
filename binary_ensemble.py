@@ -64,13 +64,13 @@ def load_binary_models(device, model_dir=None):
 
     simple = SimpleAdapter(d)
     simple.load_state_dict(
-        torch.load(os.path.join(model_dir, "simple_adapter.pt"), map_location=device)
+        torch.load(os.path.join(model_dir, "simple_adapter.pt"), map_location=device, weights_only=True)
     )
     simple.to(device).eval()
 
     lora = LoRALinear(d)
     lora.load_state_dict(
-        torch.load(os.path.join(model_dir, "lora_model.pt"), map_location=device)
+        torch.load(os.path.join(model_dir, "lora_model.pt"), map_location=device, weights_only=True)
     )
     lora.to(device).eval()
 

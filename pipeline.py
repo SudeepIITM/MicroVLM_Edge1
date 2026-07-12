@@ -5,9 +5,8 @@
 # ============================================================
 import os
 import re
-import time
 import random
-import pickle
+import joblib
 import torch
 import torch.nn.functional as F
 import numpy as np
@@ -105,10 +104,9 @@ def load_models(progress=None):
 
     if os.path.exists(multiclass_checkpoint) and os.path.exists(multiclass_encoders_path):
         try:
-            checkpoint = torch.load(multiclass_checkpoint, map_location="cpu")
+            checkpoint = torch.load(multiclass_checkpoint, map_location="cpu", weights_only=True)
             config = checkpoint["config"]
-            with open(multiclass_encoders_path, "rb") as f:
-                multiclass_encoders = pickle.load(f)
+            multiclass_encoders = joblib.load(multiclass_encoders_path)
 
             multiclass_model = pb.EnhancedTemporalAdapterModel(
                 in_dim=config["in_dim"],
