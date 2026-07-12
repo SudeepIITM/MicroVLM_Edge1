@@ -165,7 +165,7 @@ def _decode_multiclass(outputs, encoders):
     # Multi-label actions
     if "action_ml" in outputs and encoders.get("mlb_action"):
         mlb = encoders["mlb_action"]
-        proba = torch.sigmoid(outputs["action_ml"]).numpy()
+        proba = torch.sigmoid(outputs["action_ml"]).cpu().numpy()
         pred = (proba >= 0.5).astype(int)
         for i in range(len(pred)):
             if pred[i].sum() == 0:
@@ -177,7 +177,7 @@ def _decode_multiclass(outputs, encoders):
     # Fine-grained action
     if "action_fine" in outputs and encoders.get("le_action_fine"):
         le = encoders["le_action_fine"]
-        idx = outputs["action_fine"].argmax(1).numpy()
+        idx = outputs["action_fine"].argmax(1).cpu().numpy()
         result["activity"] = le.inverse_transform(idx)[0]
     else:
         result["activity"] = "Unknown"
@@ -185,7 +185,7 @@ def _decode_multiclass(outputs, encoders):
     # Super-class action
     if "action_sup" in outputs and encoders.get("le_action_sup"):
         le = encoders["le_action_sup"]
-        idx = outputs["action_sup"].argmax(1).numpy()
+        idx = outputs["action_sup"].argmax(1).cpu().numpy()
         result["category"] = le.inverse_transform(idx)[0]
     else:
         result["category"] = "Unknown"
@@ -193,7 +193,7 @@ def _decode_multiclass(outputs, encoders):
     # Weapon
     if "weapon" in outputs and encoders.get("le_weapon"):
         le = encoders["le_weapon"]
-        idx = outputs["weapon"].argmax(1).numpy()
+        idx = outputs["weapon"].argmax(1).cpu().numpy()
         result["weapon"] = le.inverse_transform(idx)[0]
     else:
         result["weapon"] = "Unknown"
@@ -201,7 +201,7 @@ def _decode_multiclass(outputs, encoders):
     # Location
     if "location" in outputs and encoders.get("le_location"):
         le = encoders["le_location"]
-        idx = outputs["location"].argmax(1).numpy()
+        idx = outputs["location"].argmax(1).cpu().numpy()
         result["location"] = le.inverse_transform(idx)[0]
     else:
         result["location"] = "Unknown"
@@ -209,7 +209,7 @@ def _decode_multiclass(outputs, encoders):
     # People
     if "people" in outputs and encoders.get("le_people"):
         le = encoders["le_people"]
-        idx = outputs["people"].argmax(1).numpy()
+        idx = outputs["people"].argmax(1).cpu().numpy()
         result["people"] = le.inverse_transform(idx)[0]
     else:
         result["people"] = "Unknown"
