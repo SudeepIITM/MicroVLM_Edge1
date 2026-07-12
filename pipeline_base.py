@@ -7,6 +7,8 @@ import numpy as np
 import cv2
 from PIL import Image
 
+FRAMES = int(os.getenv("FRAMES", "8"))
+
 def sample_frames(path, k=FRAMES):
     cap = cv2.VideoCapture(path)
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
